@@ -31,6 +31,26 @@
 			.answer:hover{
 				background-color: #999999;
 			}
+
+			.winner-introduction{
+				font-size: 24px;
+			}
+
+			.winner{
+				font-size: 60px;
+				margin: 10px;
+				margin-top: 5px;
+			}
+
+			.winner-desc{
+				width: 33em;
+			}
+
+			.winner-img{
+				margin-top: 40px;
+				float: right;
+				width: 250px;
+			}
 		</style>
 		<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 		<script>
@@ -39,20 +59,25 @@
 				var obj = {};
 				var score = {};
 				var counter = 0;
-				var data = {};
+				var questions = [];
+				var types = {};
 
 				obj.init = function( args ){
 
 					data = args;
+					questions = args.questions;
+					types = args.types;
+
 					obj.findTeams();
 					obj.draw( counter );
+					obj.finishGame();
 				}
 
 				obj.findTeams = function(){
 
-					var qCount = data.length;
+					var qCount = questions.length;
 					for( var i = 0; i < qCount; i++ ){
-						var answers = data[i].answers;
+						var answers = questions[i].answers;
 						var aCount = answers.length;
 						for( var t = 0; t < aCount; t++ ){
 							var types = answers[t].type;
@@ -87,8 +112,8 @@
 					}
 
 					counter = counter + 1;
-					if( counter == data.length ){
-						console.log( score );
+					if( counter == questions.length ){
+						obj.finishGame();
 					}else{
 						obj.draw( counter );
 					}
@@ -100,8 +125,8 @@
 					var main = $("#quizzed");
 					main.html("");
 
-					var question = data[ number ].question;
-					var answers = data[ number ].answers;
+					var question = questions[ number ].question;
+					var answers = questions[ number ].answers;
 
 					$( '<div/>', {
 						'class' : 'question',
@@ -119,6 +144,37 @@
 							'click' : obj.clickHandler,
 						}).appendTo(main);
 					}
+
+				}
+
+				obj.finishGame = function(){
+
+					var main = $("#quizzed");
+					main.html("");
+
+					var type = 'kyle';
+
+					var winner = types[type];
+
+					$( '<img/>', {
+						'class' : 'winner-img',
+						'src' : winner.img,
+					} ).appendTo(main);
+
+					$( '<div/>', {
+						'class' : 'winner-introduction',
+						'html' : 'You are most similar to...',
+					} ).appendTo(main);
+
+					$( '<div/>', {
+						'class' : 'winner',
+						'html' : winner.name,
+					} ).appendTo(main);
+
+					$( '<div/>', {
+						'class' : 'winner-desc',
+						'html' : winner.desc,
+					} ).appendTo(main);
 
 				}
 
@@ -141,43 +197,44 @@
 		</div>
 		<script>
 		console.log( window.Quizzed );
-		window.Quizzed.init([{
-			"question": "If you could go anywhere on vacation, where would you go?",
-			"answers" : [
-				{ "text": "Seattle", "type": "tyler" },
-				{ "text": "Hawaii", "type": [ "mason", "kailey" ] },
-				{ "text": "Del Mar", "type": "allan" },
-				{ "text": "Paris", "type": ["sierra", "jesalyn"] },
-				{ "text": "Australia", "type": "robbie" },
-				{ "text": "Tahiti", "type": "emily" },
-				{ "text": "Bahamas", "type": "jackie" },
-				{ "text": "Alaska", "type": "clayton" },
-				{ "text": "Yosemite", "type": "janelle" },
-				{ "text": "Home....<br> Seriously leave me alone!", "type": "kyle" }
-				]
-			},
-			{
-			"question": "What is your favorite type of pokemon?",
-			"answers": [
-				{ "text": "Snuffleupagus", "type": "kyle" },
-				{ "text": "Charzard", "type": "tyler" },
-				{ "text": "Eyee", "type": "mason" },
-				{ "text": "Pikachu", "type": ["robbie", "allan", "emily", "janelle"] },
-				{ "text": "The Super Tiny Pink One", "type": "sierra" },
-				{ "text": "Jiggly Puff", "type": ["kailey", "jesalyn"] },
-				{ "text": "Whatsa Pokemon?", "type": "jackie" },
-				{ "text": "Alakazam", "type": "clayton" },
-				]
-			},
-			{
-			"question": "If you could only eat one food for the rest of your life, what would it be?",
-			"answers": [
-				{ "text": "Can you add bacon to coffee?", "type": "kyle" },
-				{ "text": "Pasta Salad", "type": "tyler" },
-				{ "text": "Filet Minon", "type": "mason" },
-				{ "text": "Tacos", "type": "allan" },
-				{ "text": "Pasta", "type": "sierra" },
-				{ "text": "Bean & Cheese Burrito", "type": "kailey" },
+		window.Quizzed.init({
+			"questions": [{
+				"question": "If you could go anywhere on vacation, where would you go?",
+				"answers" : [
+					{ "text": "Seattle", "type": "tyler" },
+					{ "text": "Hawaii", "type": [ "mason", "kailey" ] },
+					{ "text": "Del Mar", "type": "allan" },
+					{ "text": "Paris", "type": ["sierra", "jesalyn"] },
+					{ "text": "Australia", "type": "robbie" },
+					{ "text": "Tahiti", "type": "emily" },
+					{ "text": "Bahamas", "type": "jackie" },
+					{ "text": "Alaska", "type": "clayton" },
+					{ "text": "Yosemite", "type": "janelle" },
+					{ "text": "Home....<br> Seriously leave me alone!", "type": "kyle" }
+					]
+				},
+				{
+				"question": "What is your favorite type of pokemon?",
+				"answers": [
+					{ "text": "Snuffleupagus", "type": "kyle" },
+					{ "text": "Charzard", "type": "tyler" },
+					{ "text": "Eyee", "type": "mason" },
+					{ "text": "Pikachu", "type": ["robbie", "allan", "emily", "janelle"] },
+					{ "text": "The Super Tiny Pink One", "type": "sierra" },
+					{ "text": "Jiggly Puff", "type": ["kailey", "jesalyn"] },
+					{ "text": "Whatsa Pokemon?", "type": "jackie" },
+					{ "text": "Alakazam", "type": "clayton" },
+					]
+				},
+				{
+				"question": "If you could only eat one food for the rest of your life, what would it be?",
+				"answers": [
+					{ "text": "Can you add bacon to coffee?", "type": "kyle" },
+					{ "text": "Pasta Salad", "type": "tyler" },
+					{ "text": "Filet Minon", "type": "mason" },
+					{ "text": "Tacos", "type": "allan" },
+					{ "text": "Pasta", "type": "sierra" },
+					{ "text": "Bean & Cheese Burrito", "type": "kailey" },
 				{ "text": "California Burrito", "type": "robbie" },
 				{ "text": "Sugar Packets", "type": "emily" },
 				{ "text": "Ice Cream", "type": "jackie" },
@@ -185,151 +242,214 @@
 				{ "text": "Sushi", "type": "janelle" },
 				{ "text": "Bread-bowl Clam Chowder", "type": "jesalyn" },
 				]
+				},
+				{
+				"question": "Which state do you wish you could kick out of america?",
+				"answers": [
+					{ "text": "Texas", "type": ["kyle", "jesalyn"] },
+					{ "text": "Wyoming", "type": "tyler" },
+					{ "text": "Oregon", "type": "mason" },
+					{ "text": "Canada", "type": "allan" },
+					{ "text": "Missouri", "type": "sierra" },
+					{ "text": "Delaware", "type": "kailey" },
+					{ "text": "Rhode Island", "type": "robbie" },
+					{ "text": "Kansas", "type": "emily" },
+					{ "text": "Tennessee", "type": "jackie" },
+					{ "text": "Nevada", "type": "clayton" },
+					{ "text": "Southern California", "type": "janelle" },
+					]
+				},
+				{
+				"question": "Which President would you most like to play disc golf with?",
+				"answers": [
+					{ "text": "Josiah Bartlet", "type": "kyle" },
+					{ "text": "Steve Jobs", "type": "tyler" },
+					{ "text": "Abraham Lincoln", "type": ["mason", "clayton"] },
+					{ "text": "Ronald Reagan", "type": ["allan", "kailey"] },
+					{ "text": "Barrack Obama", "type": ["sierra", "jackie"] },
+					{ "text": "George W. Bush", "type": ["robbie", "emily"] },
+					{ "text": "JFK", "type": ["janelle", "jesalyn"] },
+					]
+				},
+				{
+				"question": "Which weapon would you choose in the case of a zombie apocalypse?",
+				"answers": [
+					{ "text": "A turkey sandwhich", "type": "kyle" },
+					{ "text": "Lightsaber", "type": "tyler" },
+					{ "text": "A set of keys", "type": "mason" },
+					{ "text": "Hatchet", "type": "allan" },
+					{ "text": "Baseball bat", "type": "sierra" },
+					{ "text": "Machine Gun", "type": "kailey" },
+					{ "text": "Crossbow", "type": "robbie" },
+					{ "text": "Cinderella", "type": "emily" },
+					{ "text": "Trampoline", "type": "jackie" },
+					{ "text": "Chuck Norris", "type": "clayton" },
+					{ "text": "Incinerator", "type": "janelle" },
+					{ "text": "The Force", "type": "jesalyn" },
+					]
+				},
+				{
+				"question": "Go To Kareoke Song?",
+				"answers": [
+					{ "text": "Wilson Philips \"Hold On\"", "type": "kyle" },
+					{ "text": "Lion Kings \"I just cant wait to be king\"", "type": "tyler" },
+					{ "text": "Michael Jackson \"Man in the Mirror\"", "type": "mason" },
+					{ "text": "Elton John \"Bennie and the Jets\"", "type": "allan" },
+					{ "text": "Christina Aguilera \"What a Girl Wants\"", "type": "sierra" },
+					{ "text": "Shania Twain \"Man! I feel like a Woman!\"", "type": "kailey" },
+					{ "text": "Blink 182 \"All the Small Things\"", "type": "robbie" },
+					{ "text": "Don McLein \"American Pie\"", "type": "emily" },
+					{ "text": "Tom Petty \"Free Fallin\"", "type": "jackie" },
+					{ "text": "Celine Dion \"My Heart will Go On\"", "type": "clayton" },
+					{ "text": "Destinys Child \"Survivor\"", "type": "janelle" },
+					{ "text": "Michael Jackson \"Thriller\"", "type": "jesalyn" },
+					]
+				},
+				{
+				"question": "Last TV Show You Watch All Of?",
+				"answers": [
+					{ "text": "West Wing", "type": "kyle" },
+					{ "text": "30 Rock", "type": "tyler" },
+					{ "text": "Avatar: The Last Airbender", "type": "mason" },
+					{ "text": "Chuck", "type": "allan" },
+					{ "text": "The Bachelor", "type": "sierra" },
+					{ "text": "Pretty Little Liars", "type": ["kailey", "jeslayn"] },
+					{ "text": "Brooklyn 99", "type": "robbie" },
+					{ "text": "Gilmore Girls", "type": "emily" },
+					{ "text": "90210", "type": "jackie" },
+					{ "text": "The Office", "type": "clayton" },
+					{ "text": "I am too good for TV", "type": "janelle" },
+					]
+				},
+				{
+				"question": "Favorite Word?",
+				"answers": [
+					{ "text": "Ineffable", "type": "kyle" },
+					{ "text": "Prusumptuous", "type": "tyler" },
+					{ "text": "Pallindrome", "type": "mason" },
+					{ "text": "Bifurcate", "type": "allan" },
+					{ "text": "Bibliography", "type": "sierra" },
+					{ "text": "Joy", "type": "kailey" },
+					{ "text": "Estacionamiento", "type": "robbie" },
+					{ "text": "Boss", "type": "emily" },
+					{ "text": "Jump", "type": "jackie" },
+					{ "text": "America", "type": "clayton" },
+					{ "text": "Gratitude", "type": "janelle" },
+					{ "text": "Rocket Science", "type": "jesalyn" },
+					]
+				},
+				{
+				"question": "What piece of furniture best describes your personality?",
+				"answers": [
+					{ "text": "Old Wooden Rocking Chair", "type": "kyle" },
+					{ "text": "Porch Swing", "type": "tyler" },
+					{ "text": "Love Seat", "type": "mason" },
+					{ "text": "Stationary Bicycle", "type": "allan" },
+					{ "text": "Couch", "type": "sierra" },
+					{ "text": "Lamp", "type": "kailey" },
+					{ "text": "Card Table", "type": "robbie" },
+					{ "text": "Trampoline", "type": "emily" },
+					{ "text": "Bed", "type": "jackie" },
+					{ "text": "Chair", "type": "clayton" },
+					{ "text": "Leather Recliner", "type": "janelle" },
+					{ "text": "Popasan Chair", "type": "jesalyn" },
+					]
+				},
+				{
+				"question": "Dream Car?",
+				"answers": [
+					{ "text": "Twenty-three window 1962 VW Buss", "type": "kyle" },
+					{ "text": "Tesla Model-S", "type": "tyler" },
+					{ "text": "A Camel (Two Humps)", "type": "mason" },
+					{ "text": "Jeep Rubicon", "type": "allan" },
+					{ "text": "1968 Ford Bronco", "type": "sierra" },
+					{ "text": "Black Jetta", "type": "kailey" },
+					{ "text": "Honda Accord", "type": "robbie" },
+					{ "text": "Lexus IS250", "type": "emily" },
+					{ "text": "BMW 5 Series", "type": "jackie" },
+					{ "text": "Mater (from Cars)", "type": "clayton" },
+					{ "text": "BMW 7 Series", "type": "janelle" },
+					{ "text": "Tiffanys-blue vintage Mustang", "type": "jesalyn" },
+					]
+				},
+				{
+				"question": "Favorite Disney Character?",
+				"answers": [
+					{ "text": "GusGus", "type": "kyle" },
+					{ "text": "Luminere (candlestick)", "type": "tyler" },
+					{ "text": "Mickey Mouse", "type": "mason" },
+					{ "text": "Jasmine", "type": ["allan", "kailey", "jesalyn"] },
+					{ "text": "Dorey", "type": "sierra" },
+					{ "text": "Abu", "type": "robbie" },
+					{ "text": "Marry Poppins", "type": "emily" },
+					{ "text": "Donald Duck", "type": "jackie" },
+					{ "text": "Mater (from Cars)", "type": "clayton" },
+					{ "text": "Flower", "type": "janelle" },
+					]
+				}],
+			"types" : {
+				"kyle" : {
+					"name" : "Kyle Kerchner",
+					"desc" : "That one person.",
+					"img" : "images/kyle.jpg"
+				},
+				"tyler" : {
+					"name" : "Tyler",
+					"desc" : "TTThat one person.That one person.hat one person.TThat one person.That one person.hat one person.TThat one person.That one person.hat one person.TThat one person.That one person.hat one person.TThat one person.That one person.hat one person.TThat one person.That one person.hat one person.TThat one person.That one person.hat one person.TThat one person.That one person.hat one person.TThat one person.That one person.hat one person.TThat one person.That one person.hat one person.TThat one person.That one person.hat one person.TThat one person.That one person.hat one person.TThat one person.That one person.hat one person.TThat one person.That one person.hat one person.TThat one person.That one person.hat one person.TThat one person.That one person.hat one person.TThat one person.That one person.hat one person.That one person.That one person.hat one person.",
+					"img" : "images/tyler.jpg"
+				},
+				"mason" : {
+					"name" : "Mason",
+					"desc" : "That one person.",
+					"img" : "images/mason.jpg"
+				},
+				"allan" : {
+					"name" : "Allan",
+					"desc" : "That one person.",
+					"img" : "images/allan.jpg"
+				},
+				"sierra" : {
+					"name" : "Sierra",
+					"desc" : "That one person.",
+					"img" : "images/sierra.jpg"
+				},
+				"kailey" : {
+					"name" : "Kailey",
+					"desc" : "That one person.",
+					"img" : "images/kailey.jpg"
+				},
+				"robbie" : {
+					"name" : "Robie",
+					"desc" : "That one person.",
+					"img" : "images/robbie.jpg"
+				},
+				"emily" : {
+					"name" : "Emily",
+					"desc" : "That one person.",
+					"img" : "images/emily.jpg"
+				},
+				"jackie" : {
+					"name" : "Jackie",
+					"desc" : "That one person.",
+					"img" : "images/jackie.jpg"
+				},
+				"clayton" : {
+					"name" : "Clayton",
+					"desc" : "That one person.",
+					"img" : "images/clayton.jpg"
+				},
+				"janelle" : {
+					"name" : "Janelle",
+					"desc" : "That one person.",
+					"img" : "images/janelle.jpg"
+				},
+				"jesalyn" : {
+					"name" : "Jesalyn",
+					"desc" : "That one person.",
+					"img" : "images/jesalyn.jpg"
+				},
 			},
-			{
-			"question": "Which state do you wish you could kick out of america?",
-			"answers": [
-				{ "text": "Texas", "type": ["kyle", "jesalyn"] },
-				{ "text": "Wyoming", "type": "tyler" },
-				{ "text": "Oregon", "type": "mason" },
-				{ "text": "Canada", "type": "allan" },
-				{ "text": "Missouri", "type": "sierra" },
-				{ "text": "Delaware", "type": "kailey" },
-				{ "text": "Rhode Island", "type": "robbie" },
-				{ "text": "Kansas", "type": "emily" },
-				{ "text": "Tennessee", "type": "jackie" },
-				{ "text": "Nevada", "type": "clayton" },
-				{ "text": "Southern California", "type": "janelle" },
-				]
-			},
-			{
-			"question": "Which President would you most like to play disc golf with?",
-			"answers": [
-				{ "text": "Josiah Bartlet", "type": "kyle" },
-				{ "text": "Steve Jobs", "type": "tyler" },
-				{ "text": "Abraham Lincoln", "type": ["mason", "clayton"] },
-				{ "text": "Ronald Reagan", "type": ["allan", "kailey"] },
-				{ "text": "Barrack Obama", "type": ["sierra", "jackie"] },
-				{ "text": "George W. Bush", "type": ["robbie", "emily"] },
-				{ "text": "JFK", "type": ["janelle", "jesalyn"] },
-				]
-			},
-			{
-			"question": "Which weapon would you choose in the case of a zombie apocalypse?",
-			"answers": [
-				{ "text": "A turkey sandwhich", "type": "kyle" },
-				{ "text": "Lightsaber", "type": "tyler" },
-				{ "text": "A set of keys", "type": "mason" },
-				{ "text": "Hatchet", "type": "allan" },
-				{ "text": "Baseball bat", "type": "sierra" },
-				{ "text": "Machine Gun", "type": "kailey" },
-				{ "text": "Crossbow", "type": "robbie" },
-				{ "text": "Cinderella", "type": "emily" },
-				{ "text": "Trampoline", "type": "jackie" },
-				{ "text": "Chuck Norris", "type": "clayton" },
-				{ "text": "Incinerator", "type": "janelle" },
-				{ "text": "The Force", "type": "jesalyn" },
-				]
-			},
-			{
-			"question": "Go To Kareoke Song?",
-			"answers": [
-				{ "text": "Wilson Philips \"Hold On\"", "type": "kyle" },
-				{ "text": "Lion Kings \"I just cant wait to be king\"", "type": "tyler" },
-				{ "text": "Michael Jackson \"Man in the Mirror\"", "type": "mason" },
-				{ "text": "Elton John \"Bennie and the Jets\"", "type": "allan" },
-				{ "text": "Christina Aguilera \"What a Girl Wants\"", "type": "sierra" },
-				{ "text": "Shania Twain \"Man! I feel like a Woman!\"", "type": "kailey" },
-				{ "text": "Blink 182 \"All the Small Things\"", "type": "robbie" },
-				{ "text": "Don McLein \"American Pie\"", "type": "emily" },
-				{ "text": "Tom Petty \"Free Fallin\"", "type": "jackie" },
-				{ "text": "Celine Dion \"My Heart will Go On\"", "type": "clayton" },
-				{ "text": "Destinys Child \"Survivor\"", "type": "janelle" },
-				{ "text": "Michael Jackson \"Thriller\"", "type": "jesalyn" },
-				]
-			},
-			{
-			"question": "Last TV Show You Watch All Of?",
-			"answers": [
-				{ "text": "West Wing", "type": "kyle" },
-				{ "text": "30 Rock", "type": "tyler" },
-				{ "text": "Avatar: The Last Airbender", "type": "mason" },
-				{ "text": "Chuck", "type": "allan" },
-				{ "text": "The Bachelor", "type": "sierra" },
-				{ "text": "Pretty Little Liars", "type": ["kailey", "jeslayn"] },
-				{ "text": "Brooklyn 99", "type": "robbie" },
-				{ "text": "Gilmore Girls", "type": "emily" },
-				{ "text": "90210", "type": "jackie" },
-				{ "text": "The Office", "type": "clayton" },
-				{ "text": "I am too good for TV", "type": "janelle" },
-				]
-			},
-			{
-			"question": "Favorite Word?",
-			"answers": [
-				{ "text": "Ineffable", "type": "kyle" },
-				{ "text": "Prusumptuous", "type": "tyler" },
-				{ "text": "Pallindrome", "type": "mason" },
-				{ "text": "Bifurcate", "type": "allan" },
-				{ "text": "Bibliography", "type": "sierra" },
-				{ "text": "Joy", "type": "kailey" },
-				{ "text": "Estacionamiento", "type": "robbie" },
-				{ "text": "Boss", "type": "emily" },
-				{ "text": "Jump", "type": "jackie" },
-				{ "text": "America", "type": "clayton" },
-				{ "text": "Gratitude", "type": "janelle" },
-				{ "text": "Rocket Science", "type": "jesalyn" },
-				]
-			},
-			{
-			"question": "What piece of furniture best describes your personality?",
-			"answers": [
-				{ "text": "Old Wooden Rocking Chair", "type": "kyle" },
-				{ "text": "Porch Swing", "type": "tyler" },
-				{ "text": "Love Seat", "type": "mason" },
-				{ "text": "Stationary Bicycle", "type": "allan" },
-				{ "text": "Couch", "type": "sierra" },
-				{ "text": "Lamp", "type": "kailey" },
-				{ "text": "Card Table", "type": "robbie" },
-				{ "text": "Trampoline", "type": "emily" },
-				{ "text": "Bed", "type": "jackie" },
-				{ "text": "Chair", "type": "clayton" },
-				{ "text": "Leather Recliner", "type": "janelle" },
-				{ "text": "Popasan Chair", "type": "jesalyn" },
-				]
-			},
-			{
-			"question": "Dream Car?",
-			"answers": [
-				{ "text": "Twenty-three window 1962 VW Buss", "type": "kyle" },
-				{ "text": "Tesla Model-S", "type": "tyler" },
-				{ "text": "A Camel (Two Humps)", "type": "mason" },
-				{ "text": "Jeep Rubicon", "type": "allan" },
-				{ "text": "1968 Ford Bronco", "type": "sierra" },
-				{ "text": "Black Jetta", "type": "kailey" },
-				{ "text": "Honda Accord", "type": "robbie" },
-				{ "text": "Lexus IS250", "type": "emily" },
-				{ "text": "BMW 5 Series", "type": "jackie" },
-				{ "text": "Mater (from Cars)", "type": "clayton" },
-				{ "text": "BMW 7 Series", "type": "janelle" },
-				{ "text": "Tiffanys-blue vintage Mustang", "type": "jesalyn" },
-				]
-			},
-			{
-			"question": "Favorite Disney Character?",
-			"answers": [
-				{ "text": "GusGus", "type": "kyle" },
-				{ "text": "Luminere (candlestick)", "type": "tyler" },
-				{ "text": "Mickey Mouse", "type": "mason" },
-				{ "text": "Jasmine", "type": ["allan", "kailey", "jesalyn"] },
-				{ "text": "Dorey", "type": "sierra" },
-				{ "text": "Abu", "type": "robbie" },
-				{ "text": "Marry Poppins", "type": "emily" },
-				{ "text": "Donald Duck", "type": "jackie" },
-				{ "text": "Mater (from Cars)", "type": "clayton" },
-				{ "text": "Flower", "type": "janelle" },
-				]
-		}]);
+			});
 	</script>
 	</body>
 </html>
