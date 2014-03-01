@@ -76,7 +76,6 @@
 
 					obj.findTeams();
 					obj.draw( counter );
-					obj.finishGame();
 				}
 
 				obj.findTeams = function(){
@@ -161,13 +160,18 @@
 
 					names = shuffleArray( typeArr );
 					var topScore = 0;
-					var count = score.length;
+					var winner = '';
+					var count = names.length;
 					for( var i = 0; i < count; i++ ){
-						var number = score[i];
-						if( number )
+						var number = score[ names[i] ];
+						console.log( number );
+						if( number > topScore ){
+							topScore = number;
+							winner = names[i];
+						}
 					}
 
-					var winner = types[type];
+					var winner = types[winner];
 
 					$( '<img/>', {
 						'class' : 'winner-img',
