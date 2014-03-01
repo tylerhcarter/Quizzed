@@ -4,24 +4,32 @@
 		<style type="text/css">
 			body{
 				font-family: arial;
-				background: #333;
+				background: #333333;
 			}
 			#quizzed{
 				color: white;
 				text-align: center;
-				width: 33em;
+				width: 50em;
 				margin-left: auto;
 				margin-right: auto;
 			}
 			.answer{
-				border: 1px solid black;
+				border: 2px solid #3399FF;
 				background: #666666;
 				color: white;
-				padding: 10px;
+				cursor: pointer;
+				padding: 15px;
 				float: left;
+				font-size: 16px;
+				font-weight: bold;
 				margin: 5px;
 				width: 25%;
+				height: 33px;
 				text-align: center;
+				vertical-align: middle;
+			}
+			.answer:hover{
+				background-color: #999999;
 			}
 		</style>
 		<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
@@ -107,7 +115,7 @@
 						$( '<div/>', {
 							'class' : 'answer',
 							'data-type' : item.type,
-							'text' : item.text,
+							'html' : item.text,
 							'click' : obj.clickHandler,
 						}).appendTo(main);
 					}
@@ -145,7 +153,7 @@
 				{ "text": "Bahamas", "type": "jackie" },
 				{ "text": "Alaska", "type": "clayton" },
 				{ "text": "Yosemite", "type": "janelle" },
-				{ "text": "Home.... Seriously leave me alone!", "type": "kyle" }
+				{ "text": "Home....<br> Seriously leave me alone!", "type": "kyle" }
 				]
 			},
 			{
@@ -155,7 +163,7 @@
 				{ "text": "Charzard", "type": "tyler" },
 				{ "text": "Eyee", "type": "mason" },
 				{ "text": "Pikachu", "type": ["robbie", "allan", "emily", "janelle"] },
-				{ "text": "Super Tiny Pink One", "type": "sierra" },
+				{ "text": "The Super Tiny Pink One", "type": "sierra" },
 				{ "text": "Jiggly Puff", "type": ["kailey", "jesalyn"] },
 				{ "text": "Whatsa Pokemon?", "type": "jackie" },
 				{ "text": "Alakazam", "type": "clayton" },
