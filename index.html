@@ -33,17 +33,22 @@
 			}
 
 			.winner-introduction{
-				font-size: 24px;
+				font-size: 18px;
 			}
 
 			.winner{
+				color: #3399FF;
 				font-size: 60px;
+				font-weight: bold;
 				margin: 10px;
 				margin-top: 5px;
 			}
 
 			.winner-desc{
-				width: 33em;
+				color: #CCCCCC;
+				width: 30em;
+				text-align: center;
+				margin-left: 30px;
 			}
 
 			.winner-img{
@@ -61,6 +66,7 @@
 				var counter = 0;
 				var questions = [];
 				var types = {};
+				var typeArr = [];
 
 				obj.init = function( args ){
 
@@ -89,6 +95,7 @@
 							for( var m = 0; m < tCount; m++ ){
 								if( typeof score[types[m] ] == 'undefined' ){
 									score[ types[m] ] = 0;
+									typeArr.push( types[m] );
 								}
 							}
 						}
@@ -152,7 +159,13 @@
 					var main = $("#quizzed");
 					main.html("");
 
-					var type = 'kyle';
+					names = shuffleArray( typeArr );
+					var topScore = 0;
+					var count = score.length;
+					for( var i = 0; i < count; i++ ){
+						var number = score[i];
+						if( number )
+					}
 
 					var winner = types[type];
 
@@ -390,62 +403,62 @@
 			"types" : {
 				"kyle" : {
 					"name" : "Kyle Kerchner",
-					"desc" : "That one person.",
+					"desc" : "I\'m so sorry. No, but seriously... I\'m sorry for you. ",
 					"img" : "images/kyle.jpg"
 				},
 				"tyler" : {
 					"name" : "Tyler",
-					"desc" : "TTThat one person.That one person.hat one person.TThat one person.That one person.hat one person.TThat one person.That one person.hat one person.TThat one person.That one person.hat one person.TThat one person.That one person.hat one person.TThat one person.That one person.hat one person.TThat one person.That one person.hat one person.TThat one person.That one person.hat one person.TThat one person.That one person.hat one person.TThat one person.That one person.hat one person.TThat one person.That one person.hat one person.TThat one person.That one person.hat one person.TThat one person.That one person.hat one person.TThat one person.That one person.hat one person.TThat one person.That one person.hat one person.TThat one person.That one person.hat one person.TThat one person.That one person.hat one person.That one person.That one person.hat one person.",
+					"desc" : "You got Tyler Carter. You are most likely a San Diego local. You love the #20 from Cotijas. If given 3 hours of free time you would probably spend it making robots. Speaking of robots, you are not one. ",
 					"img" : "images/tyler.jpg"
 				},
 				"mason" : {
 					"name" : "Mason",
-					"desc" : "That one person.",
+					"desc" : "You got Mason. The eternal optimist. You are sure that everything will always work out for the best, and it always does. You have a song of joy in your heart, and that song is the theme to pokemon.",
 					"img" : "images/mason.jpg"
 				},
 				"allan" : {
 					"name" : "Allan",
-					"desc" : "That one person.",
+					"desc" : "You got Allan Schuler. You have a love of two wheeled things. Two wheeled transportation, two wheeled tacos, two wheeled friends. You are older than any of your friends, even if you are the same age. People probably write songs about your name because you are that special.",
 					"img" : "images/allan.jpg"
 				},
 				"sierra" : {
 					"name" : "Sierra",
-					"desc" : "That one person.",
+					"desc" : "You got Sierra. If you got this because you chose the 1968 Bronco, you should be prouder than any other person in the history of mankind. If you got this because you chose to kick out Missouri you should be embarrassed. Missouri has given us George Washington Carver, Eminem, and Sheryl Crow. Also, you sing like a dolphin if dolphins were good singers.",
 					"img" : "images/sierra.jpg"
 				},
 				"kailey" : {
 					"name" : "Kailey",
-					"desc" : "That one person.",
+					"desc" : "You got Kailey. Your heart will go on and on. You like the good simple things in life like happiness, bean and cheese burritos, and machine guns. Everyone likes you, because you are always nice, except to zombies… you kill zombies.",
 					"img" : "images/kailey.jpg"
 				},
 				"robbie" : {
-					"name" : "Robie",
-					"desc" : "That one person.",
+					"name" : "Robbie",
+					"desc" : "You got Robbie. If you got Robbie because you chose the Honda Accord then you really are a Robbie. If you got him for another reason, well done. You are smart, dedicated, hard working, you think that Abu is funny, and the ladies swoon. ",
 					"img" : "images/robbie.jpg"
 				},
 				"emily" : {
 					"name" : "Emily",
-					"desc" : "That one person.",
+					"desc" : "You got Emily. She picked Kansas to kick out by say “what one is in the middle? yeah, I don’t like that one” You are the life of any party, which makes sense when all that you eat is sugar packets. maybe all the sugar is why you are so sweet ;) ",
 					"img" : "images/emily.jpg"
 				},
 				"jackie" : {
 					"name" : "Jackie",
-					"desc" : "That one person.",
+					"desc" : "You got Jackie. A firm hatred of state named based pick up lines mixed with a completely valid ignorance of all things Pokemon, you are Rad. You choose to jump your way to safety in zombie based fear situations, but you are cool and comfortable like a midday nap. Congrats on life.",
 					"img" : "images/jackie.jpg"
 				},
 				"clayton" : {
 					"name" : "Clayton",
-					"desc" : "That one person.",
+					"desc" : "You got Clayton. You win. Chuck Norris, America, Cars. Seriously, you win.",
 					"img" : "images/clayton.jpg"
 				},
 				"janelle" : {
 					"name" : "Janelle",
-					"desc" : "That one person.",
+					"desc" : "You got Janelle. Only you would have thought of a way to trick zombies into an incinerator. The brains of any operation, you appreciate the little things in life. Who but you could pick a skunk as your fav Disney friend?",
 					"img" : "images/janelle.jpg"
 				},
 				"jesalyn" : {
 					"name" : "Jesalyn",
-					"desc" : "That one person.",
+					"desc" : "You got Jesalyn. Your nor-cal roots don't die easy. You know that soup ought never be eaten from a bowl that isn't also eatable. Cruising around in your girly colored vintage dream you know that value of relaxation and midi-chlorians. If you got Jesalyn you would not ask the question, \"what is a midi-chlorian?\"",
 					"img" : "images/jesalyn.jpg"
 				},
 			},
