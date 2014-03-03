@@ -1,0 +1,66 @@
+body{
+	font-family: arial;
+	background: #F7F6F6;
+}
+#quizzed{
+	color: back;
+	text-align: center;
+	width: 600px;
+	margin-left: auto;
+	margin-right: auto;
+}
+.question{
+	margin-bottom: 10px;
+}
+.answer{
+	background: #CCCCCC;
+	color: white;
+	cursor: pointer;
+	padding: 15px;
+	float: left;
+	font-size: 16px;
+	font-weight: bold;
+	margin: 5px;
+	margin-left: 15px;
+	width: 40%;
+	height: 33px;
+	text-align: center;
+	vertical-align: middle;
+}
+.answer:hover{
+	background-color: #999999;
+}
+
+.winner-introduction{
+	font-size: 18px;
+	margin-left: 10px;
+}
+
+.winner{
+	color: #3399FF;
+	font-size: 60px;
+	font-weight: bold;
+	margin: 10px;
+	margin-top: 5px;
+}
+
+.winner-desc{
+	color: #666666;
+	width: 30em;
+	text-align: center;
+	margin-left: 30px;
+	margin-right: 10px;
+}
+
+.winner-img{
+	margin-top: 40px;
+	margin-left: 10px;
+	float: right;
+	width: 250px;
+}
+
+.facebook-share{
+	color: blue;
+	cursor: pointer;
+	padding: 5px;
+}
