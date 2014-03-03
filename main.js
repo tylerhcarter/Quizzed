@@ -5,6 +5,7 @@ window.Quizzed = (function( $ ){
 	var questions = [];
 	var types = {};
 	var typeArr = [];
+	var facebookShareArgs = {};
 
 	obj.init = function( args ){
 
@@ -130,6 +131,25 @@ window.Quizzed = (function( $ ){
 			'html' : winner.desc,
 		} ).appendTo(main);
 
+		$( '<a/>', {
+			'click' : obj.fbShare,
+			'text' : 'Share on Facebook',
+			'class' : 'facebook-share',
+		}).appendTo(main);
+
+		facebookShareArgs = {
+			method: 'feed',
+			name: 'Who are you at GPC?',
+			picture: 'http://projects.102content.com/embed/gpc/' + winner.img,
+			link: 'http://gpcstudents.com/quiz',
+			caption: 'You got ' + winner.name + '!!!',
+			description: winner.desc
+		};
+
+	}
+
+	obj.fbShare = function(){
+		FB.ui( facebookShareArgs );
 	}
 
 	function shuffleArray(array) {
